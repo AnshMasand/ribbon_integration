@@ -27,7 +27,7 @@ jobs:
           PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
           PR_TITLE=$(jq --raw-output .pull_request.title "$GITHUB_EVENT_PATH")
           PR_DESCRIPTION=$(jq --raw-output .pull_request.body "$GITHUB_EVENT_PATH")
-          PR_RECIPIENT=$(jq --raw-output .github.actor "$GITHUB_EVENT_PATH")
+          PR_RECIPIENT=$(jq --raw-output .sender.login "$GITHUB_EVENT_PATH")
 
           # Create the Ribbon Award JSON
           RIBBON_AWARD=$(jq -n --arg recipient "$PR_RECIPIENT" --arg title "$PR_TITLE" --arg description "$PR_DESCRIPTION" --arg additional_description "Additional description" '{"recipient": $recipient, "title": $title, "description": $description, "additional_description": $additional_description}')
