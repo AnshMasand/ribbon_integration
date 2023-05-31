@@ -42,4 +42,3 @@ jobs:
         run: | 
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
-           
