@@ -24,4 +24,5 @@ jobs:
           RIBBON_AWARD=$(jq -n --arg recipient "$PR_RECIPIENT" --arg title "$PR_TITLE" --arg description "$PR_DESCRIPTION" --arg additional_description "Additional description" '{"recipient": $recipient, "title": $title, "description": $description, "additional_description": $additional_description}')
 
           # Output the Ribbon Award JSON
-          echo "::set-output name=ribbon_award::$RIBBON_AWARD"
+          echo "ribbon_award=${{ steps.analyze.outputs.ribbon_award }}" >> $GITHUB_ENV
+
