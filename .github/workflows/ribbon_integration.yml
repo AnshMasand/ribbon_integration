@@ -36,3 +36,15 @@ jobs:
 
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
+           
+      - name: Submit Ribbon Award
+        run: |
+          # Retrieve the Ribbon Award JSON
+          RIBBON_AWARD="$RIBBON_AWARD"
+
+          # Submit the Ribbon Award as a draft using the Ribbon API
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer <RIBBON_API_TOKEN>" \
+            -d "$RIBBON_AWARD" \
+            "<RIBBON_API_URL>/awards/drafts"
