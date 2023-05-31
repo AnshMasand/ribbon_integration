@@ -1,4 +1,4 @@
-name: Ribbon Integration
+name: Ribbon Integratio
 
 on:
   pull_request:
