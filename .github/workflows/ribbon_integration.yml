@@ -36,7 +36,7 @@ jobs:
           PR_DIFF=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...pr_branch)
 
           # Generate code changes summary
-          SUMMARY=$(python .github/workflows/generate_summary.py "$PR_DIFF")
+          SUMMARY="this is a summary without OPENAI api key"
           
 
           RIBBON_AWARD=$(jq -n --arg recipient "$PR_RECIPIENT" --arg title "$PR_TITLE" --arg description "$PR_DESCRIPTION" --arg additional_description "$SUMMARY" \
