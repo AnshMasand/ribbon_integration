@@ -44,7 +44,7 @@ jobs:
 
 
           # Create the ribbon_awards directory if it doesn't exist
-           mkdir -p ribbon_awards
+          mkdir -p ribbon_awards
 
           # Generate the filename using the user and PR number
           FILENAME="${PR_RECIPIENT//[^a-zA-Z0-9]/_}_PR${PR_NUMBER}.json"
