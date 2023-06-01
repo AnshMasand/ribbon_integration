@@ -40,7 +40,8 @@ jobs:
           PR_RECIPIENT=$(jq --raw-output .sender.login "$GITHUB_EVENT_PATH")
           
           git fetch origin "pull/${{ github.event.pull_request.number }}/head:pr_branch"
-          PR_DIFF=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...pr_branch)
+          PR_DIFF=$(git diff --name-only "${{ github.event.pull_request.base.sha }}...pr_branch")
+
 
           # Generate code changes summary
           SUMMARY="this is a summary without OPENAI api key"
