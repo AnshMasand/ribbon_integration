@@ -25,3 +25,4 @@ if __name__ == '__main__':
     # Generate code changes summary
     summary = generate_code_changes_summary(pr_diff)
     print(summary)
+    print(pr_diff)
