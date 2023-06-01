@@ -22,11 +22,26 @@ jobs:
       - name: Install dependencies
         run: |
           pip install openai     
-
+          
       - name: Create directory
         run: |
-          mkdir .github/workflows/ribbon_awards
+          mkdir ribbon_awards
           echo "Directory created successfully"
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config --global credential.helper store
+          git add .
+
+      - name: Commit and push changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git commit -m "Create ribbon_awards directory"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}"
+          git push
           
       - name: Analyze Pull Request
         id: analyze
@@ -53,10 +68,18 @@ jobs:
           FILENAME="${PR_RECIPIENT//[^a-zA-Z0-9]/_}_PR${PR_NUMBER}.json"
 
           # Store the Ribbon Award JSON in a file
-          echo $RIBBON_AWARD >> ".github/workflows/ribbon_awards/$FILENAME"
+          echo $RIBBON_AWARD >> "ribbon_awards/$FILENAME"
            
           # Output the path to the Ribbon Award JSON file
-          echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/.github/workflows/ribbon_awards/$FILENAME"
+          echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/ribbon_awards/$FILENAME"
           
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
+          
+      - name: Commit and push changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git commit -m "Create ribbon_awards directory"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}"
+          git push
