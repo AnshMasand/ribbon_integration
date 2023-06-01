@@ -29,14 +29,6 @@ jobs:
         run: |
           mkdir -p ribbon_awards
           echo "Directory created successfully"
-
-      - name: Commit and push changes
-        run: |
-         git config --local user.email "action@github.com"
-         git config --local user.name "GitHub Action"
-         git add ribbon_awards/ribbon_file.json
-         git commit -m "Create ribbon_awards directory and ribbon_file.json"
-         git push
           
       - name: Analyze Pull Request
         id: analyze
@@ -64,9 +56,15 @@ jobs:
 
           # Store the Ribbon Award JSON in a file
           echo $RIBBON_AWARD >> "ribbon_awards/$FILENAME"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ribbon_awards/$FILENAME
+          git commit -m "Create ribbon_awards directory and ribbon_file.json"
+          git push
            
           # Output the path to the Ribbon Award JSON file
           echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/ribbon_awards/$FILENAME"
           
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
+        
