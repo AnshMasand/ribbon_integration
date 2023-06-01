@@ -2,7 +2,7 @@ import sys
 import openai
 
 # Set up OpenAI API credentials
-openai.api_key="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"
+openai.api_key=""
 
 def generate_code_changes_summary(pr_diff):
     # Generate summary using OpenAI's GPT-3.5 Turbo
