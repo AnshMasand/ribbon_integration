@@ -33,11 +33,7 @@ jobs:
           PR_RECIPIENT=$(jq --raw-output .sender.login "$GITHUB_EVENT_PATH")
           
           
-          PR_DIFF=$(curl -L \
-           -H "Accept: application/vnd.github+json" \
-           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
-           -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/diff)
+          PR_DIFF=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...pr_branch)
 
           # Generate code changes summary
           SUMMARY=$(python .github/workflows/generate_summary.py "$PR_DIFF")
