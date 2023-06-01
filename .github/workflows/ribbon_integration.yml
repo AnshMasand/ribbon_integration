@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checks out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
          ref: ${{ github.head_ref }}
          token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,12 +30,13 @@ jobs:
           mkdir -p ribbon_awards
           echo "Directory created successfully"
 
-      - name: Set up Git
+      - name: Commit and push changes
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git config --global credential.helper store
-          git add .
+         git config --local user.email "action@github.com"
+         git config --local user.name "GitHub Action"
+         git add ribbon_awards/ribbon_file.json
+         git commit -m "Create ribbon_awards directory and ribbon_file.json"
+         git push
           
       - name: Analyze Pull Request
         id: analyze
@@ -69,11 +70,3 @@ jobs:
           
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
-          
-      - name: Commit and push changes
-        run: |
-         git config --local user.email "action@github.com"
-         git config --local user.name "GitHub Action"
-         git add ribbon_awards/ribbon_file.json
-         git commit -m "Create ribbon_awards directory and ribbon_file.json"
-         git push
