@@ -44,16 +44,16 @@ jobs:
 
 
           # Create the ribbon_awards directory if it doesn't exist
-          mkdir -p ribbon_awards
+          mkdir -p .github/workflows/ribbon_awards
 
           # Generate the filename using the user and PR number
           FILENAME="${PR_RECIPIENT//[^a-zA-Z0-9]/_}_PR${PR_NUMBER}.json"
 
           # Store the Ribbon Award JSON in a file
-           echo $RIBBON_AWARD >> "ribbon_awards/$FILENAME"
+           echo $RIBBON_AWARD >> ".github/workflows/ribbon_awards/$FILENAME"
 
           # Output the path to the Ribbon Award JSON file
-          echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/ribbon_awards/$FILENAME"
+          echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/.github/workflows/ribbon_awards/$FILENAME"
           
           # Output the Ribbon Award JSON
           echo "::set-output name=ribbon_award::$RIBBON_AWARD"
