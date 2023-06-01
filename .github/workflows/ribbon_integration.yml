@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout main branch
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.head_ref }}
+        ref: main
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create ribbon_awards directory and ribbon_file.json
@@ -21,7 +21,7 @@ jobs:
         mkdir -p ribbon_awards
         echo '{}' > ribbon_awards/ribbon_file.json
 
-    - name: Commit and push changes
+    - name: Commit and push changes to main branch
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
