@@ -27,14 +27,6 @@ jobs:
         run: |
           mkdir .github/workflows/ribbon_awards
           echo "Directory created successfully"
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Create ribbon_awards directory"
-          git push
           
       - name: Analyze Pull Request
         id: analyze
@@ -51,22 +43,18 @@ jobs:
           # Generate code changes summary
           SUMMARY="this is a summary without OPENAI api key"
           
-
           RIBBON_AWARD=$(jq -n --arg recipient "$PR_RECIPIENT" --arg title "$PR_TITLE" --arg description "$PR_DESCRIPTION" --arg additional_description "$SUMMARY" \
                         '{"recipient": $recipient, "title": $title, "description": $description, "additional_description": $additional_description}')
 
+          # Create the ribbon_awards directory if it doesn't exist
+          mkdir -p ribbon_awards
+          
           # Generate the filename using the user and PR number
           FILENAME="${PR_RECIPIENT//[^a-zA-Z0-9]/_}_PR${PR_NUMBER}.json"
 
           # Store the Ribbon Award JSON in a file
           echo $RIBBON_AWARD >> ".github/workflows/ribbon_awards/$FILENAME"
            
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Create ribbon_awards file"
-          git push
-
           # Output the path to the Ribbon Award JSON file
           echo "::set-output name=ribbon_award_path::$GITHUB_WORKSPACE/.github/workflows/ribbon_awards/$FILENAME"
           
